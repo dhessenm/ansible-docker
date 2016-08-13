@@ -1,0 +1,22 @@
+---
+# defaults file for dbs_docker
+use_proxy: false
+
+packages_ubuntu:
+  - apt-transport-https
+  - ca-certificates
+  - apparmor
+
+# DB Systel public certificates
+certificate_root: DB-Systel-Root-CA2015.crt
+certificate_web: DB-Systel-Web-CA2015.crt
+
+certificates : [
+  { dir: "dockerhub-abn.noncd.rz.db.de", value: "{{ certificate_root }}"},
+  { dir: "dockerhub-abn.noncd.rz.db.de", value: "{{ certificate_web }}"},
+  { dir: "dockerhub-gui-abn.noncd.rz.db.de", value: "{{ certificate_root }}"},
+  { dir: "dockerhub-gui-abn.noncd.rz.db.de", value: "{{ certificate_web }}"},
+  { dir: "dockerhub.noncd.rz.db.de", value: "{{ certificate_root }}"},
+  { dir: "dockerhub.noncd.rz.db.de", value: "{{ certificate_web }}"}
+]
+
