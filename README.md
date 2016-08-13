@@ -1,4 +1,4 @@
-Role Name
+Ansible role: dbs_docker
 =========
 
 Role installs docker engine
