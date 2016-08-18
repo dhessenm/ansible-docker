@@ -3,33 +3,65 @@
 - name: Some Packages for Docker are present
   apt: name={{ item }} state=present update_cache=yes
   with_items: packages_ubuntu
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Docker apt repository is present
   apt_key: 
     keyserver=hkp://p80.pool.sks-keyservers.net:80 
     id=58118E89F3A912897C070ADBF76221572C52609D
     state=present
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Docker apt docker.list is present
   template:
     src=docker.list
     dest=/etc/apt/sources.list.d/docker.list
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Apt cache is update
   apt: update_cache=yes
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Lxc-docker is absent
   apt: pkg=lxc-docker state=removed
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Docker-engine is present
   apt: name=docker-engine state=present
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Group docker is present
   group: name=docker state=present
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: User vagrant is in group docker
   user: name=vagrant groups=docker append=yes
   # when: infrastructure_provider == "vagrant"
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Docker files are present
   template:
@@ -40,6 +72,10 @@
     group: root
   register: copy_result
   notify: Ubuntu restart docker 
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Proxy configuration in docker config is present
   lineinfile:
@@ -51,21 +87,37 @@
     - { regexp: 'export HTTPS_PROXY', value: '{{ proxy }}' }
     - { regexp: 'export NO_PROXY', value: '{{ no_proxy }}' }
   when: use_proxy
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Python-setuptools are present
   action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=present"
   with_items:
     - python-setuptools
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Python pip is present
   easy_install:
     name: pip
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Docker compose is present
   pip:
     name: docker-compose
 #    version: "{{ docker_compose_version if docker_compose_version else omit }}"
     state: present
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Directories for certificates are present
   file:
@@ -73,6 +125,10 @@
     state: directory
     mode: 0755
   with_items: certificates
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Certificates are present
   copy:
@@ -80,6 +136,14 @@
     dest: "/etc/docker/certs.d/{{ item.dir }}/{{ item.value}}"
   with_items: certificates
   notify: Ubuntu restart docker 
+  tags:
+    - docker
+    - create
+    - docker:create
 
 - name: Docker daemon is restarted
   service: name=docker state=restarted
+  tags:
+    - docker
+    - create
+    - docker:create

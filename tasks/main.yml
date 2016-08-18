@@ -3,6 +3,8 @@
 - include: check_vars.yml
   tags: 
     - docker
+    - create
+    - docker:create
 
 # - include: debian.yml
 #  when: ansible_os_family == 'Debian'
@@ -11,9 +13,13 @@
   when: ansible_distribution == 'Ubuntu'
   tags: 
     - docker
+    - create
+    - docker:create
 
 - include: redhat.yml
   when: ansible_os_family == 'RedHat'
   tags: 
     - docker
+    - create
+    - docker:create
 
