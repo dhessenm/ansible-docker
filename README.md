@@ -1,4 +1,4 @@
-Ansible role: dbs_docker
+Ansible role: docker
 =========
 
 Role installs docker engine
@@ -18,8 +18,8 @@ Available variables are listed below, along with default values:
 Dependencies
 ------------
 
-* dbs_common
-* dbs_proxyconf
+* common
+* proxyconf
 
 
 Example Playbook
@@ -27,7 +27,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: dbs_docker, tags ["docker"]  }
+         - { role: docker, tags ["docker"]  }
 
 License
 -------

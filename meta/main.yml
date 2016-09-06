@@ -18,8 +18,8 @@ galaxy_info:
 
 dependencies:
 #  - { role: dbs_common }
-- src: http://gitlab.lpa.aws.db.de/dbs/dbs_common.git
-  scm: git
-  name: dbs_common
-  version: master
+# - src: http://gitlab.lpa.aws.db.de/dbs/common.git
+  # scm: git
+  # name: dbs_common
+  # version: master
 
