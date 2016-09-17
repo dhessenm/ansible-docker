@@ -1,18 +1,19 @@
 Ansible role: docker
 =========
 
-Role installs docker engine
+Role installs Docker engine on Ubuntu trusty
 
 Requirements
 ------------
-
+none
 
 Role Variables
 --------------
-
 Available variables are listed below, along with default values:
 
 * use_proxy: false
+* http_proxy
+* no_proxy
 
 
 Dependencies

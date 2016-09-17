@@ -10,16 +10,8 @@ galaxy_info:
   platforms:
   - name: Ubuntu
     versions:
-    - all
+    - trusty
   galaxy_tags:
-    - DBS
     - installer
     - docker
-
-dependencies:
-#  - { role: dbs_common }
-# - src: http://gitlab.lpa.aws.db.de/dbs/common.git
-  # scm: git
-  # name: dbs_common
-  # version: master
 
