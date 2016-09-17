@@ -1,8 +1,8 @@
 ---
 # defaults file for dbs_docker
-use_proxy: false
-# http_proxy: http://localhost:1234
-# no_proxy: localhost,127.0.0.1,.db.de
+use_proxy: False
+proxy: 
+no_proxy: localhost,127.0.0.1,.db.de
 
 packages_ubuntu:
   - apt-transport-https

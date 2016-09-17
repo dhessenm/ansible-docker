@@ -2,7 +2,7 @@
 
 - name: Some Packages for Docker are present
   apt: name={{ item }} state=present update_cache=yes
-  with_items: packages_ubuntu
+  with_items: '{{ packages_ubuntu }}'
   tags:
     - docker
     - create
@@ -80,7 +80,7 @@
 - name: Proxy configuration in docker config is present
   lineinfile:
     dest: /etc/default/docker
-    regexp: '^{{ item.regexp }}'
+    regexp: '{{ item.regexp }}'
     line: '{{ item.regexp }}={{ item.value }}'
   with_items:
     - { regexp: 'export HTTP_PROXY', value:  '{{ proxy }}' }
@@ -124,7 +124,7 @@
     path: "/etc/docker/certs.d/{{ item.dir }}"
     state: directory
     mode: 0755
-  with_items: certificates
+  with_items: '{{ certificates }}'
   tags:
     - docker
     - create
@@ -134,7 +134,7 @@
   copy:
     src: "certs/{{ item.value }}"
     dest: "/etc/docker/certs.d/{{ item.dir }}/{{ item.value}}"
-  with_items: certificates
+  with_items: '{{ certificates }}'
   notify: Ubuntu restart docker 
   tags:
     - docker
