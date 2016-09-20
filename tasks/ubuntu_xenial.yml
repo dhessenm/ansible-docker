@@ -75,7 +75,7 @@
     dest: /etc/systemd/system/docker.service.d/60-docker-exec.conf
     owner: root 
     mode: 0644
-  notify: Ubuntu restart docker
+  notify: xenial restart docker
   tags:
     - docker
     - create
@@ -88,7 +88,7 @@
     owner: root 
     mode: 0644
   when: use_proxy
-  notify: Ubuntu restart docker
+  notify: xenial restart docker
   tags:
     - docker
     - create
@@ -141,7 +141,7 @@
     src: "certs/{{ item.value }}"
     dest: "/etc/docker/certs.d/{{ item.dir }}/{{ item.value}}"
   with_items: '{{ certificates }}'
-  notify: Ubuntu restart docker 
+  notify: xenial restart docker 
   tags:
     - docker
     - create

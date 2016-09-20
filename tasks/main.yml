@@ -5,15 +5,14 @@
     - docker
 
 - include: ubuntu_trusty.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
   tags: 
     - docker
 
-# For systemd, at the moment we use ubuntu_trusty.yml also for xenial
-# - include: ubuntu_xenial.yml
-  # when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
-  # tags: 
-    # - docker
+- include: ubuntu_xenial.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+  tags: 
+    - docker
 
 - include: redhat.yml
   when: ansible_os_family == 'RedHat'
