@@ -18,10 +18,17 @@
     - create
     - docker:create
 
-- name: Docker apt docker.list is present
-  template:
-    src=docker.list
-    dest=/etc/apt/sources.list.d/docker.list
+# - name: Docker apt docker.list is present
+#   template:
+#     src=docker.list
+#     dest=/etc/apt/sources.list.d/docker.list
+#   tags:
+#     - docker
+#     - create
+#     - docker:create
+
+- name: Docker Repo config is present
+  apt_repository: repo="deb https://apt.dockerproject.org/repo ubuntu-{{ ansible_distribution_release }} main"
   tags:
     - docker
     - create
@@ -63,34 +70,49 @@
     - create
     - docker:create
 
-- name: Docker files are present
-  template:
-    src: docker.cfg
-    dest: /etc/default/docker
-    mode: 0644
-    owner: root
-    group: root
-  register: copy_result
-  notify: Ubuntu restart docker 
+# - name: Docker files are present
+#   template:
+#     src: docker.cfg
+#     dest: /etc/default/docker
+#     mode: 0644
+#     owner: root
+#     group: root
+#   notify: Ubuntu restart docker 
+#   tags:
+#     - docker
+#     - create
+#     - docker:create
+
+- name: Systemd Docker directory is present
+  file: path=/etc/systemd/system/docker.service.d state=directory
+
+- name: Docker systemd config exec file is present
+  copy: 
+    - src: systemd_docker_exec.conf
+    - dest: /etc/systemd/system/docker.service.d/60-docker-exec.conf
+    - owner=root 
+    - mode=0644
+  notify: Ubuntu restart docker
   tags:
     - docker
     - create
     - docker:create
 
-- name: Proxy configuration in docker config is present
-  lineinfile:
-    dest: /etc/default/docker
-    regexp: '{{ item.regexp }}'
-    line: '{{ item.regexp }}={{ item.value }}'
-  with_items:
-    - { regexp: 'export HTTP_PROXY', value:  '{{ proxy }}' }
-    - { regexp: 'export HTTPS_PROXY', value: '{{ proxy }}' }
-    - { regexp: 'export NO_PROXY', value: '{{ no_proxy }}' }
+- name: Docker systemd config proxy file is present
+  copy: 
+    - src: systemd_docker_proxy.conf
+    - dest: /etc/systemd/system/docker.service.d/50-docker-proxy.conf
+    - owner=root 
+    - mode=0644
   when: use_proxy
+  notify: Ubuntu restart docker
   tags:
     - docker
     - create
     - docker:create
+
+- name: Docker systemd config proxy file is absent
+  file: path=/etc/systemd/system/docker.service.d/50-docker-proxy.conf state=absent
 
 - name: Python-setuptools are present
   action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=present"
