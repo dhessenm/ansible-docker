@@ -18,10 +18,8 @@
     - create
     - docker:create
 
-- name: Docker apt docker.list is present
-  template:
-    src=docker.list
-    dest=/etc/apt/sources.list.d/docker.list
+- name: Docker Repo config is present
+  apt_repository: repo="deb https://apt.dockerproject.org/repo ubuntu-{{ ansible_distribution_release }} main"
   tags:
     - docker
     - create
@@ -70,7 +68,6 @@
     mode: 0644
     owner: root
     group: root
-  register: copy_result
   notify: Ubuntu restart docker 
   tags:
     - docker

@@ -3,27 +3,19 @@
 - include: check_vars.yml
   tags: 
     - docker
-    - create
-    - docker:create
 
 - include: ubuntu_trusty.yml
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+  when: ansible_distribution == 'Ubuntu'
   tags: 
     - docker
-    - create
-    - docker:create
 
-- include: ubuntu_xenial.yml
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
-  tags: 
-    - docker
-    - create
-    - docker:create
+# - include: ubuntu_xenial.yml
+  # when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+  # tags: 
+    # - docker
 
 - include: redhat.yml
   when: ansible_os_family == 'RedHat'
   tags: 
     - docker
-    - create
-    - docker:create
 
