@@ -13,12 +13,12 @@
     - create
     - docker:create
 
-# - include: ubuntu_xenial.yml
-#   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
-#   tags: 
-#     - docker
-#     - create
-#     - docker:create
+- include: ubuntu_xenial.yml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+  tags: 
+    - docker
+    - create
+    - docker:create
 
 - include: redhat.yml
   when: ansible_os_family == 'RedHat'
