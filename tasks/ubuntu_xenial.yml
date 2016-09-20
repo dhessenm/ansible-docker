@@ -77,8 +77,8 @@
   copy: 
     src: systemd_docker_exec.conf
     dest: /etc/systemd/system/docker.service.d/60-docker-exec.conf
-    owner=root 
-    mode=0644
+    owner: root 
+    mode: 0644
   tags:
     - docker
     - create
