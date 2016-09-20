@@ -93,10 +93,10 @@
 
 - name: Docker systemd config proxy file is present
   copy: 
-    - src: systemd_docker_proxy.conf
-    - dest: /etc/systemd/system/docker.service.d/50-docker-proxy.conf
-    - owner=root 
-    - mode=0644
+    src: systemd_docker_proxy.conf
+    dest: /etc/systemd/system/docker.service.d/50-docker-proxy.conf
+    owner: root 
+    mode: 0644
   when: use_proxy
   notify: Ubuntu restart docker
   tags:
