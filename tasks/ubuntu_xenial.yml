@@ -147,9 +147,20 @@
     - create
     - docker:create
 
-- name: Docker daemon is restarted
-  service: name=docker state=restarted
+- name: Systemctl daemon is realoaded
+  shell: systemctl daemon-reload
+
+- name: Docker daemon is enabled
+  service: name=docker enabled=yes
   tags:
     - docker
     - create
     - docker:create
+
+- name: Docker daemon is restarted
+  service: name=docker state=started
+  tags:
+    - docker
+    - create
+    - docker:create
+
