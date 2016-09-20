@@ -70,28 +70,21 @@
     - create
     - docker:create
 
-# - name: Docker files are present
-#   template:
-#     src: docker.cfg
-#     dest: /etc/default/docker
-#     mode: 0644
-#     owner: root
-#     group: root
-#   notify: Ubuntu restart docker 
-#   tags:
-#     - docker
-#     - create
-#     - docker:create
-
 - name: Systemd Docker directory is present
   file: path=/etc/systemd/system/docker.service.d state=directory
 
 - name: Docker systemd config exec file is present
   copy: 
-    - src: systemd_docker_exec.conf
-    - dest: /etc/systemd/system/docker.service.d/60-docker-exec.conf
-    - owner=root 
-    - mode=0644
+    src: systemd_docker_exec.conf
+    dest: /etc/systemd/system/docker.service.d/60-docker-exec.conf
+    owner=root 
+    mode=0644
+  tags:
+    - docker
+    - create
+    - docker:create
+
+
   notify: Ubuntu restart docker
   tags:
     - docker
