@@ -8,7 +8,7 @@ packages_ubuntu:
   - apt-transport-https
   - ca-certificates
   - apparmor
-  - linux-image-extra-{{ ansible_distribution_version }}
+  - linux-image-extra-{{ ansible_kernel }}
   - linux-image-extra-virtual
 
 # DB Systel public certificates
