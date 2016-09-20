@@ -9,6 +9,7 @@
   tags: 
     - docker
 
+# For systemd, at the moment we use ubuntu_trusty.yml also for xenial
 # - include: ubuntu_xenial.yml
   # when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
   # tags: 
