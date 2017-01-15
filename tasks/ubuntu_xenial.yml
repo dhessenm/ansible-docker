@@ -98,6 +98,20 @@
   file: path=/etc/systemd/system/docker.service.d/50-docker-proxy.conf state=absent
   when: not use_proxy
 
+- name: Docker configfile /etc/default/docker is present
+  template:
+    src: docker.cfg
+    dest: /etc/default/docker
+    mode: 0644
+    owner: root
+    group: root
+  notify: xenial restart docker
+  tags:
+    - docker
+    - create
+    - docker:create
+
+
 - name: Python-setuptools are present
   action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=present"
   with_items:
